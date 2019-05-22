@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Service("ServiceImpl")
+@Service("SecondPersonServiceImpl")
 public class SecondPersonServiceImpl implements SecondPersonService {
 
     @Autowired
