@@ -25,15 +25,30 @@ import static org.junit.Assert.*;
 
 public class PersonServiceImplTest {
 
-    @Autowired
-    private PersonService service;
+    //@Autowired
+   // private PersonService personService;
+    private PersonRepositoryImpl repository;
+    private Person person;
+
+    public Person persons()
+    {
+        return this.repository.getAll().iterator().next();
+    }
+
+    @Before
+    public void setUp() throws Exception{
+        this.repository = PersonRepositoryImpl.getRepository();
+        person = PersonFactory.getPerson("Sal", "Monella", "00001");
+    }
 
     @Test
     public void a_create() {
 
-        Person person = PersonFactory.getPerson("Tshepo","Sepadile","00001");
-        person = service.create(person);
-        Assert.assertEquals("Tshepo", person.personName());
+        Person person1 = repository.create(person);
+        assertSame(this.person, person1);
+        /*Person person = PersonFactory.getPerson("Tshepo","Sepadile","00001");
+        person = personService.create(person);
+        Assert.assertEquals("Tshepo", person.personName());*/
     }
 
     @Test
@@ -41,7 +56,7 @@ public class PersonServiceImplTest {
 
         String personId = "00006";
         Person person = PersonFactory.getPerson("Tshepo", "Sepadile", personId);
-        person = service.update(person);
+        person = repository.update(person);
         Assert.assertEquals("00006", person.personId());
 
 
@@ -51,23 +66,23 @@ public class PersonServiceImplTest {
     public void e_delete() {
 
         String personId = "00001";
-        service.delete(personId);
-       assertNull(service.read(personId));
+        repository.delete(personId);
+       assertNull(repository.read(personId));
     }
 
     @Test
     public void b_read() {
 
         Person p = PersonFactory.getPerson("Tshepo", "Sepadile", "00001");
-        p = service.create(p);
+        p = repository.create(p);
         Assert.assertNotNull(p);
     }
 
     @Test
     public void d_getAll() {
 
-        a_create(); //Comment the create method out when you run all tests at once
-        Set<Person> persons = this.service.getAll();
+        //a_create(); //Comment the create method out when you run all tests at once
+        Set<Person> persons = this.repository.getAll();
         Assert.assertEquals(1, persons.size());
     }
 }

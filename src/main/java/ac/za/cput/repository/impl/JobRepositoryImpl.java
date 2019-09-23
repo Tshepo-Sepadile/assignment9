@@ -2,10 +2,12 @@ package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.Job;
 import ac.za.cput.repository.JobRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Repository("JobInMemory")
 public class JobRepositoryImpl implements JobRepository {
 
     private static JobRepositoryImpl repository = null;

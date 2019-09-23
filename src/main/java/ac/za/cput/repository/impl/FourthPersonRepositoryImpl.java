@@ -8,12 +8,12 @@ import java.util.Set;
 
 public class FourthPersonRepositoryImpl implements FourthPersonRepository {
 
-    private static FourthPersonRepositoryImpl repository = null;
-    private Set<FourthPerson> fourthPersons;
+    private static FourthPersonRepository repository = null;
+    private static Set<FourthPerson> persons;
 
     private FourthPersonRepositoryImpl()
     {
-        this.fourthPersons = new HashSet<>();
+        this.persons = new HashSet<>();
     }
 
     public static FourthPersonRepository getRepository()
@@ -22,33 +22,38 @@ public class FourthPersonRepositoryImpl implements FourthPersonRepository {
         return repository;
     }
 
-    public FourthPerson create(FourthPerson fourthPerson)
+    public FourthPerson create(FourthPerson person)
     {
-        this.fourthPersons.add(fourthPerson);
-        return fourthPerson;
+        this.persons.add(person);
+        return person;
     }
 
-    public FourthPerson read(String perosnId)
+    public FourthPerson read(final String personId)
     {
-        this.fourthPersons.contains(perosnId);
-        return null;
+        FourthPerson person = this.persons.stream().filter(e -> e.personId().equalsIgnoreCase(personId)).findAny().orElse(null);
+        return person;
     }
 
     public FourthPerson update(FourthPerson person)
     {
-        if(fourthPersons == person){
-            this.fourthPersons.add(person);
+        FourthPerson personDelete = read(person.personId());
+        if(personDelete != null)
+        {
+            this.persons.remove(personDelete);
+            return create(person);
         }
+
         return person;
     }
 
     public void delete(String personId)
     {
-        this.fourthPersons.remove(personId);
+        FourthPerson person = read(personId);
+        this.persons.remove(person);
     }
 
     public Set<FourthPerson> getAll()
     {
-        return this.fourthPersons;
+        return this.persons;
     }
 }

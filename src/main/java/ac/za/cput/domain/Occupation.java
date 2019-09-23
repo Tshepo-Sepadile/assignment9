@@ -26,6 +26,12 @@ public class Occupation {
             return this;
         }
 
+        public Builder copy(Occupation occupation)
+        {
+            this.occupationID = occupation.occupationID;
+            return this;
+        }
+
         public Occupation build()
         {
             return new Occupation(this);

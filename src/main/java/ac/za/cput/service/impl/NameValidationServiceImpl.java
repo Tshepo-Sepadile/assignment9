@@ -2,6 +2,7 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.NameValidation;
 import ac.za.cput.repository.NameValidationRepository;
+import ac.za.cput.repository.impl.NameValidationRepositoryImpl;
 import ac.za.cput.service.NameValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,10 +13,24 @@ import java.util.Set;
 @Service("NameValidationServiceImpl")
 public class NameValidationServiceImpl implements NameValidationService {
 
-    @Autowired
-    @Qualifier("InMemory")
+    private NameValidationServiceImpl service = null;
 
     private NameValidationRepository repository;
+
+    public NameValidationServiceImpl()
+    {
+        this.repository = NameValidationRepositoryImpl.getRepository();
+    }
+
+    public NameValidationServiceImpl getService()
+    {
+        if(service == null)
+        {
+            service = new NameValidationServiceImpl();
+        }
+
+        return service;
+    }
 
     @Override
     public NameValidation create(NameValidation nameValidation)

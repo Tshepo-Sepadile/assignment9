@@ -2,10 +2,12 @@ package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.FifthPersonPassword;
 import ac.za.cput.repository.FifthPersonPasswordRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Repository("FifthPersonInMemory")
 public class FifthPersonPasswordRepositoryImpl implements FifthPersonPasswordRepository{
 
     private static FifthPersonPasswordRepositoryImpl repository = null;

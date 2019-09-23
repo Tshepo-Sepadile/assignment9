@@ -2,18 +2,20 @@ package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.SecondPerson;
 import ac.za.cput.repository.SecondPersonRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Repository("SecondPersonInMemory")
 public class SecondPersonRepositoryImpl implements SecondPersonRepository {
 
-    private static SecondPersonRepositoryImpl repository = null;
-    private Set<SecondPerson> secondPersons;
+    private static SecondPersonRepository repository = null;
+    private static Set<SecondPerson> persons;
 
     private SecondPersonRepositoryImpl()
     {
-        this.secondPersons = new HashSet<>();
+        this.persons = new HashSet<>();
     }
 
     public static SecondPersonRepository getRepository()
@@ -22,33 +24,39 @@ public class SecondPersonRepositoryImpl implements SecondPersonRepository {
         return repository;
     }
 
-    public SecondPerson create(SecondPerson secondPerson)
+    public SecondPerson create(SecondPerson person)
     {
-        this.secondPersons.add(secondPerson);
-        return secondPerson;
+        this.persons.add(person);
+        return person;
     }
 
-    public SecondPerson read(String personId)
+    @Override
+    public SecondPerson read(final String personId)
     {
-        this.secondPersons.contains(personId);
-        return null;
+        SecondPerson person = this.persons.stream().filter(e -> e.personId().equalsIgnoreCase(personId)).findAny().orElse(null);
+        return person;
     }
 
     public SecondPerson update(SecondPerson person)
     {
-        if(secondPersons == person){
-            this.secondPersons.add(person);
+        SecondPerson personDelete = read(person.personId());
+        if(personDelete != null)
+        {
+            this.persons.remove(personDelete);
+            return create(person);
         }
+
         return person;
     }
 
     public void delete(String personId)
     {
-        this.secondPersons.remove(personId);
+        SecondPerson person = read(personId);
+        this.persons.remove(person);
     }
 
     public Set<SecondPerson> getAll()
     {
-        return this.secondPersons;
+        return this.persons;
     }
 }

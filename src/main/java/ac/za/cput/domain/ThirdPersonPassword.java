@@ -25,6 +25,12 @@ public class ThirdPersonPassword implements Password {
             return this;
         }
 
+        public Builder copy(ThirdPersonPassword thirdPersonPassword)
+        {
+            this.passW3 = thirdPersonPassword.passW3;
+            return this;
+        }
+
         public ThirdPersonPassword build()
         {
             return new ThirdPersonPassword(this);

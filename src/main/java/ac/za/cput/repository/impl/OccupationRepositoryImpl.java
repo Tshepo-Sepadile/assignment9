@@ -2,10 +2,12 @@ package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.Occupation;
 import ac.za.cput.repository.OccupationRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Repository("OccupationInMemory")
 public class OccupationRepositoryImpl implements OccupationRepository{
 
     private static OccupationRepositoryImpl repository = new OccupationRepositoryImpl();

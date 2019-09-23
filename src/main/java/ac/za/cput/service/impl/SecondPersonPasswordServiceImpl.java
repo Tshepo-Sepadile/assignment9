@@ -2,6 +2,7 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.SecondPersonPassword;
 import ac.za.cput.repository.SecondPersonPasswordRepository;
+import ac.za.cput.repository.impl.SecondPersonPasswordRepositoryImpl;
 import ac.za.cput.service.SecondPersonPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,10 +13,24 @@ import java.util.Set;
 @Service("SecondPersonPasswordServiceImpl")
 public class SecondPersonPasswordServiceImpl implements SecondPersonPasswordService {
 
-    @Autowired
-    @Qualifier("InMemory")
+    private SecondPersonPasswordServiceImpl service = null;
 
     private SecondPersonPasswordRepository repository;
+
+    public SecondPersonPasswordServiceImpl()
+    {
+        this.repository = SecondPersonPasswordRepositoryImpl.getRepository();
+    }
+
+    public SecondPersonPasswordServiceImpl getService()
+    {
+        if(service == null)
+        {
+            service = new SecondPersonPasswordServiceImpl();
+        }
+
+        return service;
+    }
 
     @Override
     public SecondPersonPassword create(SecondPersonPassword personPassword)

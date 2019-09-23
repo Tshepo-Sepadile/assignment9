@@ -2,6 +2,7 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.FourthPersonPassword;
 import ac.za.cput.repository.FourthPersonPasswordRepository;
+import ac.za.cput.repository.impl.FourthPersonPasswordRepositoryImpl;
 import ac.za.cput.service.FourthPersonPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,10 +13,24 @@ import java.util.Set;
 @Service("FourthPersonPasswordServiceImpl")
 public class FourthPersonPasswordServiceImpl implements FourthPersonPasswordService {
 
-    @Autowired
-    @Qualifier("InMemory")
+    private FourthPersonPasswordServiceImpl service = null;
 
     private FourthPersonPasswordRepository repository;
+
+    public FourthPersonPasswordServiceImpl()
+    {
+        this.repository = FourthPersonPasswordRepositoryImpl.getRepository();
+    }
+
+    public FourthPersonPasswordServiceImpl getService()
+    {
+        if(service == null)
+        {
+            service = new FourthPersonPasswordServiceImpl();
+        }
+
+        return service;
+    }
 
     @Override
     public FourthPersonPassword create(FourthPersonPassword personPassword)

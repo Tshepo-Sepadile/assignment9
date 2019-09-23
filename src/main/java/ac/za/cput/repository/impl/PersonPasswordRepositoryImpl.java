@@ -2,10 +2,12 @@ package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.PersonPassword;
 import ac.za.cput.repository.PersonPasswordRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Repository("PersonPasswordInMemory")
 public class PersonPasswordRepositoryImpl implements PersonPasswordRepository{
 
     private static PersonPasswordRepositoryImpl repository = null;

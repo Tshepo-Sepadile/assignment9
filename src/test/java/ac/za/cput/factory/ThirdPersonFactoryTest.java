@@ -10,7 +10,7 @@ public class ThirdPersonFactoryTest {
 
     @Test
     public void getThirdPerson() {
-        ThirdPerson thirdPerson  = ThirdPersonFactory.getPerson("Nkosinathi", "Sola", "00003");
-        Assert.assertEquals("Sola",thirdPerson.personSurname());
+        ThirdPerson thirdPerson  = ThirdPersonFactory.getPerson("Max", "Steel", "00003");
+        Assert.assertEquals("Steel",thirdPerson.personSurname());
     }
 }

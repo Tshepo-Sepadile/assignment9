@@ -9,42 +9,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/secondPersonPassword")
 public class SecondPersonPasswordController {
 
     @Autowired
-    @Qualifier("ServiceImpl")
     private SecondPersonPasswordService service;
 
     @PostMapping("/create")
     @ResponseBody
-    public SecondPersonPassword create(SecondPersonPassword personPassword)
+    public SecondPersonPassword create(SecondPersonPassword secondPersonPassword)
     {
-        return service.create(personPassword);
+        return service.create(secondPersonPassword);
     }
 
     @PostMapping("/update")
     @ResponseBody
-    public SecondPersonPassword update(SecondPersonPassword personPassword)
+    public SecondPersonPassword update(SecondPersonPassword secondPersonPassword)
     {
-        return service.update(personPassword);
+        return service.update(secondPersonPassword);
     }
 
-    @PostMapping("/delete{personPassword}")
+    @GetMapping("/delete/{secondPersonPassword}")
     @ResponseBody
-    public void delete(@PathVariable String personPassword)
+    public void delete(@PathVariable String secondPersonPassword)
     {
-        service.delete(personPassword);
+        service.delete(secondPersonPassword);
     }
 
-    @PostMapping("/read{personPassword}")
+    @GetMapping("/read/{personPassword}")
     @ResponseBody
-    public SecondPersonPassword read(@PathVariable String personPassword)
+    public SecondPersonPassword read(@PathVariable String secondPersonPassword)
     {
-        return service.read(personPassword);
+        return service.read(secondPersonPassword);
     }
 
-    @PostMapping("/read/all")
+    @GetMapping("/read/all")
     @ResponseBody
     public Set<SecondPersonPassword> getAll()
     {

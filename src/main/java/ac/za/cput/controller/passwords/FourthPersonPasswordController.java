@@ -2,6 +2,7 @@ package ac.za.cput.controller.passwords;
 
 import ac.za.cput.domain.FourthPersonPassword;
 import ac.za.cput.service.FourthPersonPasswordService;
+import ac.za.cput.service.impl.FourthPersonPasswordServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -9,42 +10,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/fourthPersonPassword")
 public class FourthPersonPasswordController {
 
     @Autowired
-    @Qualifier("ServiceImpl")
-    private FourthPersonPasswordService service;
+    private FourthPersonPasswordServiceImpl service;
 
     @PostMapping("/create")
     @ResponseBody
-    public FourthPersonPassword create(FourthPersonPassword personPassword)
+    public FourthPersonPassword create(FourthPersonPassword fourthPersonPassword)
     {
-        return service.create(personPassword);
+        return service.create(fourthPersonPassword);
     }
 
     @PostMapping("/update")
     @ResponseBody
-    public FourthPersonPassword update(FourthPersonPassword personPassword)
+    public FourthPersonPassword update(FourthPersonPassword fourthPersonPassword)
     {
-        return service.update(personPassword);
+        return service.update(fourthPersonPassword);
     }
 
-    @PostMapping("/delete{personPassword}")
+    @GetMapping("/delete/{fourthPersonPassword}")
     @ResponseBody
-    public void delete(@PathVariable String personPassword)
+    public void delete(@PathVariable String fourthPersonPassword)
     {
-        service.delete(personPassword);
+        service.delete(fourthPersonPassword);
     }
 
-    @PostMapping("/read{personPassword}")
+    @GetMapping("/read/{fourthPersonPassword}")
     @ResponseBody
-    public FourthPersonPassword read(@PathVariable String personPassword)
+    public FourthPersonPassword read(@PathVariable String fourthPersonPassword)
     {
-        return service.read(personPassword);
+        return service.read(fourthPersonPassword);
     }
 
-    @PostMapping("/read/all")
+    @GetMapping("/read/all")
     @ResponseBody
     public Set<FourthPersonPassword> getAll()
     {

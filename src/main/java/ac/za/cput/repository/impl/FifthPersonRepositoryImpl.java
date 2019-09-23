@@ -8,12 +8,12 @@ import java.util.Set;
 
 public class FifthPersonRepositoryImpl implements FifthPersonRepository {
 
-    private static FifthPersonRepositoryImpl repository = null;
-    private Set<FifthPerson> fifthPersons;
+    private static FifthPersonRepository repository = null;
+    private static Set<FifthPerson> persons;
 
     private FifthPersonRepositoryImpl()
     {
-        this.fifthPersons = new HashSet<>();
+        this.persons = new HashSet<>();
     }
 
     public static FifthPersonRepository getRepository()
@@ -22,33 +22,38 @@ public class FifthPersonRepositoryImpl implements FifthPersonRepository {
         return repository;
     }
 
-    public FifthPerson create(FifthPerson fifthPerson)
+    public FifthPerson create(FifthPerson person)
     {
-        this.fifthPersons.add(fifthPerson);
-        return fifthPerson;
+        this.persons.add(person);
+        return person;
     }
 
-    public FifthPerson read(String personId)
+    public FifthPerson read(final String personId)
     {
-        this.fifthPersons.contains(personId);
-        return null;
+        FifthPerson person = this.persons.stream().filter(e -> e.personId().equalsIgnoreCase(personId)).findAny().orElse(null);
+        return person;
     }
 
     public FifthPerson update(FifthPerson person)
     {
-        if(fifthPersons == person){
-            this.fifthPersons.add(person);
+        FifthPerson personDelete = read(person.personId());
+        if(personDelete != null)
+        {
+            this.persons.remove(personDelete);
+            return create(person);
         }
+
         return person;
     }
 
     public void delete(String personId)
     {
-        this.fifthPersons.remove(personId);
+        FifthPerson person = read(personId);
+        this.persons.remove(person);
     }
 
     public Set<FifthPerson> getAll()
     {
-        return this.fifthPersons;
+        return this.persons;
     }
 }

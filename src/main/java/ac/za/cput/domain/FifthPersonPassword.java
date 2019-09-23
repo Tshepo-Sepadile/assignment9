@@ -25,6 +25,12 @@ public class FifthPersonPassword implements Password {
             return this;
         }
 
+        public Builder copy(FifthPersonPassword fifthPersonPassword)
+        {
+            this.passW5 = fifthPersonPassword.passW5;
+            return this;
+        }
+
         public FifthPersonPassword build()
         {
             return new FifthPersonPassword(this);

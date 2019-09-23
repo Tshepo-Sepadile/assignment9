@@ -2,6 +2,7 @@ package ac.za.cput.controller.passwords;
 
 import ac.za.cput.domain.FifthPersonPassword;
 import ac.za.cput.service.FifthPersonPasswordService;
+import ac.za.cput.service.impl.FifthPersonPasswordServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -9,42 +10,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/fifthPersonPassword")
 public class FifthPersonPasswordController {
 
     @Autowired
-    @Qualifier("ServiceImpl")
-    private FifthPersonPasswordService service;
+    private FifthPersonPasswordServiceImpl service;
 
     @PostMapping("/create")
     @ResponseBody
-    public FifthPersonPassword create(FifthPersonPassword personPassword)
+    public FifthPersonPassword create(FifthPersonPassword fifthPersonPassword)
     {
-        return service.create(personPassword);
+        return service.create(fifthPersonPassword);
     }
 
     @PostMapping("/update")
     @ResponseBody
-    public FifthPersonPassword update(FifthPersonPassword personPassword)
+    public FifthPersonPassword update(FifthPersonPassword fifthPersonPassword)
     {
-        return service.update(personPassword);
+        return service.update(fifthPersonPassword);
     }
 
-    @PostMapping("/delete{personPassword}")
+    @GetMapping("/delete/{fifthPersonPassword}")
     @ResponseBody
-    public void delete(@PathVariable String personPassword)
+    public void delete(@PathVariable String fifthPersonPassword)
     {
-        service.delete(personPassword);
+        service.delete(fifthPersonPassword);
     }
 
-    @PostMapping("/read{personPassword}")
+    @GetMapping("/read/{fifthPersonPassword}")
     @ResponseBody
-    public FifthPersonPassword read(@PathVariable String personPassword)
+    public FifthPersonPassword read(@PathVariable String fifthPersonPassword)
     {
-        return service.read(personPassword);
+        return service.read(fifthPersonPassword);
     }
 
-    @PostMapping("/read/all")
+    @GetMapping("/read/all")
     @ResponseBody
     public Set<FifthPersonPassword> getAll()
     {

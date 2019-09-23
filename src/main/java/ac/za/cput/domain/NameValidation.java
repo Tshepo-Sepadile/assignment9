@@ -26,6 +26,12 @@ public class NameValidation {
             return this;
         }
 
+        public Builder copy(NameValidation nameValidation)
+        {
+            this.nameVal = nameValidation.nameVal;
+            return this;
+        }
+
         public NameValidation build()
         {
             return new NameValidation(this);

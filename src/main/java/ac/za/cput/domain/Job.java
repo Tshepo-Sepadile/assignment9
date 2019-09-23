@@ -26,6 +26,12 @@ public class Job {
             return this;
         }
 
+        public Builder copy(Job job)
+        {
+            this.jobTitle = job.jobTible;
+            return this;
+        }
+
         public Job build()
         {
             return new Job(this);

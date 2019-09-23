@@ -2,6 +2,7 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.Job;
 import ac.za.cput.repository.JobRepository;
+import ac.za.cput.repository.impl.JobRepositoryImpl;
 import ac.za.cput.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,10 +13,24 @@ import java.util.Set;
 @Service("JobServiceImpl")
 public class JobServiceImpl implements JobService {
 
-    @Autowired
-    @Qualifier("InMemory")
+    private JobServiceImpl service = null;
 
     private JobRepository repository;
+
+    public JobServiceImpl()
+    {
+        this.repository = JobRepositoryImpl.getRepository();
+    }
+
+    public JobServiceImpl getService()
+    {
+        if(service == null)
+        {
+            service = new JobServiceImpl();
+        }
+
+        return service;
+    }
 
     @Override
     public Job create(Job job)

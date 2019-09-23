@@ -53,6 +53,14 @@ public class ThirdPerson implements User {
             return this;
         }
 
+        public Builder copy(ThirdPerson person)
+        {
+            this.name = person.name;
+            this.surname = person.surname;
+            this.personId = person.personId;
+            return this;
+        }
+
         public ThirdPerson build()
         {
             return new ThirdPerson(this);

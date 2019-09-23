@@ -10,7 +10,7 @@ public class PersonFactoryTest {
 
     @Test
     public void getPerson() {
-        Person person = PersonFactory.getPerson("Tshepo", "Sepadile", "12345");
+        Person person = PersonFactory.getPerson("Bart", "Ender", "12345");
         Assert.assertNotNull(person);
     }
 }

@@ -2,6 +2,7 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.PasswordValidation;
 import ac.za.cput.repository.PasswordValidationRepository;
+import ac.za.cput.repository.impl.PasswordValidationRepositoryImpl;
 import ac.za.cput.service.PasswordValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,10 +13,24 @@ import java.util.Set;
 @Service("PasswordValidationServiceImpl")
 public class PasswordValidationServiceImpl implements PasswordValidationService {
 
-    @Autowired
-    @Qualifier("InMemory")
+    private PasswordValidationServiceImpl service = null;
 
     private PasswordValidationRepository repository;
+
+    public PasswordValidationServiceImpl()
+    {
+        this.repository = PasswordValidationRepositoryImpl.getRepository();
+    }
+
+    public PasswordValidationServiceImpl getService()
+    {
+        if(service == null)
+        {
+            service = new PasswordValidationServiceImpl();
+        }
+
+        return service;
+    }
 
     @Override
     public PasswordValidation create(PasswordValidation passwordValidation)

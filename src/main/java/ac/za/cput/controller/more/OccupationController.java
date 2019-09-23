@@ -2,6 +2,7 @@ package ac.za.cput.controller.more;
 
 import ac.za.cput.domain.Occupation;
 import ac.za.cput.service.OccupationService;
+import ac.za.cput.service.impl.OccupationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/occupation")
 public class OccupationController {
 
     @Autowired
-    @Qualifier("ServiceImpl")
-    private OccupationService service;
+    private OccupationServiceImpl service;
 
     @PostMapping("/create")
     @ResponseBody
@@ -30,21 +30,21 @@ public class OccupationController {
         return service.update(occupation);
     }
 
-    @PostMapping("/delete{occupationId}")
+    @GetMapping("/delete/{occupationId}")
     @ResponseBody
     public void delete(@PathVariable String occupationId)
     {
         service.delete(occupationId);
     }
 
-    @PostMapping("/read{occupationId}")
+    @GetMapping("/read/{occupationId}")
     @ResponseBody
     public Occupation read(@PathVariable String occupationId)
     {
         return service.read(occupationId);
     }
 
-    @PostMapping("/read/all")
+    @GetMapping("/read/all")
     @ResponseBody
     public Set<Occupation> getAll()
     {

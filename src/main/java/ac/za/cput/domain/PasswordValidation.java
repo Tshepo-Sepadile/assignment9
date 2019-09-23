@@ -25,6 +25,12 @@ public class PasswordValidation {
             return this;
         }
 
+        public Builder copy(PasswordValidation passwordValidation)
+        {
+            this.passwordVal = passwordValidation.passwordVal;
+            return this;
+        }
+
         public PasswordValidation build()
         {
             return new PasswordValidation(this);

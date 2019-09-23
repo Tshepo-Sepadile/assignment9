@@ -2,6 +2,7 @@ package ac.za.cput.controller.more;
 
 import ac.za.cput.domain.NameValidation;
 import ac.za.cput.service.NameValidationService;
+import ac.za.cput.service.impl.NameValidationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/nameVal")
 public class NameValidationController {
 
     @Autowired
-    @Qualifier("ServiceImpl")
-    private NameValidationService service;
+    private NameValidationServiceImpl service;
 
     @PostMapping("/create")
     @ResponseBody
@@ -30,21 +30,21 @@ public class NameValidationController {
         return service.update(nameValidation);
     }
 
-    @PostMapping("/delete{nameVal}")
+    @GetMapping("/delete/{nameVal}")
     @ResponseBody
     public void delete(@PathVariable String nameVal)
     {
         service.delete(nameVal);
     }
 
-    @PostMapping("/read{nameVal}")
+    @GetMapping("/read/{nameVal}")
     @ResponseBody
     public NameValidation read(@PathVariable String nameVal)
     {
         return service.read(nameVal);
     }
 
-    @PostMapping("/read/all")
+    @GetMapping("/read/all")
     @ResponseBody
     public Set<NameValidation> getAll()
     {

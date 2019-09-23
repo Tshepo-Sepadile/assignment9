@@ -23,6 +23,12 @@ public class FourthPersonPassword implements Password {
             return this;
         }
 
+        public Builder copy(FourthPersonPassword fourthPersonPassword)
+        {
+            this.passW4 = fourthPersonPassword.passW4;
+            return this;
+        }
+
         public FourthPersonPassword build()
         {
             return new FourthPersonPassword(this);

@@ -53,6 +53,14 @@ public class Person implements User {
             return this;
         }
 
+        public Builder copy(Person person)
+        {
+            this.name = person.name;
+            this.surname = person.surname;
+            this.personId = person.personId;
+            return this;
+        }
+
         public Person build()
         {
             return new Person(this);

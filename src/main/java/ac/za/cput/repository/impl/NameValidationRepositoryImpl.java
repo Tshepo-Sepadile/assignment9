@@ -2,10 +2,12 @@ package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.NameValidation;
 import ac.za.cput.repository.NameValidationRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Repository("NameValidationInMemory")
 public class NameValidationRepositoryImpl implements NameValidationRepository{
 
     private static NameValidationRepositoryImpl repository = null;

@@ -10,7 +10,7 @@ public class FifthPersonFactoryTest {
 
     @Test
     public void getFifthPerson() {
-        FifthPerson fifthPerson  = FifthPersonFactory.getPerson("Tinashe", "Madzimbamuto", "00005");
+        FifthPerson fifthPerson  = FifthPersonFactory.getPerson("Sal", "Monella", "00005");
         Assert.assertNotNull(fifthPerson.personName());
     }
 }

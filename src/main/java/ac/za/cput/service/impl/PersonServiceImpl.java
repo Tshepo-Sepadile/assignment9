@@ -2,6 +2,7 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.Person;
 import ac.za.cput.repository.PersonRepository;
+import ac.za.cput.repository.impl.PersonRepositoryImpl;
 import ac.za.cput.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,10 +13,24 @@ import java.util.Set;
 @Service("PersonServiceImpl")
 public class PersonServiceImpl implements PersonService {
 
-    @Autowired
-    @Qualifier("InMemory")
+    private PersonServiceImpl service = null;
 
     private PersonRepository repository;
+
+    public PersonServiceImpl()
+    {
+        this.repository = PersonRepositoryImpl.getRepository();
+    }
+
+    public PersonServiceImpl getService()
+    {
+        if(service == null)
+        {
+            service = new PersonServiceImpl();
+        }
+
+        return service;
+    }
 
     @Override
     public Person create(Person person)

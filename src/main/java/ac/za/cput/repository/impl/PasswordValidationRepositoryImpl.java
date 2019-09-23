@@ -2,10 +2,12 @@ package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.PasswordValidation;
 import ac.za.cput.repository.PasswordValidationRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Repository("PasswordValidationInMemory")
 public class PasswordValidationRepositoryImpl implements PasswordValidationRepository {
 
     private static PasswordValidationRepositoryImpl repository = null;

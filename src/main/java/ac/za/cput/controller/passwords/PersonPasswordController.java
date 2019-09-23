@@ -2,6 +2,7 @@ package ac.za.cput.controller.passwords;
 
 import ac.za.cput.domain.PersonPassword;
 import ac.za.cput.service.PersonPasswordService;
+import ac.za.cput.service.impl.PersonPasswordServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/personPassword")
 public class PersonPasswordController {
 
     @Autowired
-    @Qualifier("ServiceImpl")
-    private PersonPasswordService service;
+    private PersonPasswordServiceImpl service;
 
     @PostMapping("/create")
     @ResponseBody
@@ -30,21 +30,21 @@ public class PersonPasswordController {
         return service.update(personPassword);
     }
 
-    @PostMapping("/delete{personPassword}")
+    @GetMapping("/delete/{personPassword}")
     @ResponseBody
     public void delete(@PathVariable String personPassword)
     {
         service.delete(personPassword);
     }
 
-    @PostMapping("/read{personPassword}")
+    @GetMapping("/read/{personPassword}")
     @ResponseBody
     public PersonPassword read(@PathVariable String personPassword)
     {
         return service.read(personPassword);
     }
 
-    @PostMapping("/read/all")
+    @GetMapping("/read/all")
     @ResponseBody
     public Set<PersonPassword> getAll()
     {

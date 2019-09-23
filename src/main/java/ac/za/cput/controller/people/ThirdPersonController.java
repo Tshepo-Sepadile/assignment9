@@ -4,19 +4,19 @@ import ac.za.cput.domain.ThirdPerson;
 import ac.za.cput.service.ThirdPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("password/thirdPerson")
 public class ThirdPersonController {
 
     @Autowired
-    @Qualifier("ServiceImpl")
     private ThirdPersonService service;
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ThirdPerson create(ThirdPerson person)
     {
@@ -30,21 +30,21 @@ public class ThirdPersonController {
         return service.update(person);
     }
 
-    @PostMapping("/delete{personId}")
+    @GetMapping("/delete/{personId}")
     @ResponseBody
     public void delete(@PathVariable String personId)
     {
         service.delete(personId);
     }
 
-    @PostMapping("/read{personId}")
+    @GetMapping("/read/{personId}")
     @ResponseBody
     public ThirdPerson read(@PathVariable String personId)
     {
         return service.read(personId);
     }
 
-    @PostMapping("/read/all")
+    @GetMapping("/read/all")
     @ResponseBody
     public Set<ThirdPerson> getAll()
     {

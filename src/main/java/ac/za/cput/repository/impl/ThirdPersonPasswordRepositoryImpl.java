@@ -2,10 +2,12 @@ package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.ThirdPersonPassword;
 import ac.za.cput.repository.ThirdPersonPasswordRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Repository("ThirdPersonPasswordInMemory")
 public class ThirdPersonPasswordRepositoryImpl implements ThirdPersonPasswordRepository{
 
     private static ThirdPersonPasswordRepositoryImpl repository = null;

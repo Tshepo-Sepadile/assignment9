@@ -25,6 +25,12 @@ public class PersonPassword implements Password {
             return this;
         }
 
+        public Builder copy(PersonPassword personPassword)
+        {
+            this.passW = personPassword.passW;
+            return this;
+        }
+
         public PersonPassword build()
         {
             return new PersonPassword(this);

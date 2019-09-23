@@ -2,6 +2,7 @@ package ac.za.cput.controller.more;
 
 import ac.za.cput.domain.PasswordValidation;
 import ac.za.cput.service.PasswordValidationService;
+import ac.za.cput.service.impl.PasswordValidationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/passwordValidation")
 public class PasswordValidationController {
 
     @Autowired
-    @Qualifier("ServiceImpl")
-    private PasswordValidationService service;
+    private PasswordValidationServiceImpl service;
 
     @PostMapping("/create")
     @ResponseBody
@@ -30,21 +30,21 @@ public class PasswordValidationController {
         return service.update(passwordValidation);
     }
 
-    @PostMapping("/delete{passVal}")
+    @GetMapping("/delete/{passVal}")
     @ResponseBody
     public void delete(@PathVariable String passVal)
     {
         service.delete(passVal);
     }
 
-    @PostMapping("/read{passVal}")
+    @GetMapping("/read/{passVal}")
     @ResponseBody
     public PasswordValidation read(@PathVariable String passVal)
     {
         return service.read(passVal);
     }
 
-    @PostMapping("/read/all")
+    @GetMapping("/read/all")
     @ResponseBody
     public Set<PasswordValidation> getAll()
     {

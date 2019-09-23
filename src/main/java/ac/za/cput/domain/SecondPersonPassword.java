@@ -25,6 +25,12 @@ public class SecondPersonPassword implements Password {
             return this;
         }
 
+        public Builder copy(SecondPersonPassword secondPersonPassword)
+        {
+            this.passW2 = secondPersonPassword.passW2;
+            return this;
+        }
+
         public SecondPersonPassword build()
         {
             return new SecondPersonPassword(this);
