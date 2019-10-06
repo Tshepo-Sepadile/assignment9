@@ -2,11 +2,13 @@ package ac.za.cput.controller.people;
 
 import ac.za.cput.domain.ThirdPerson;
 import ac.za.cput.service.ThirdPersonService;
+import ac.za.cput.service.impl.ThirdPersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -14,40 +16,18 @@ import java.util.Set;
 public class ThirdPersonController {
 
     @Autowired
-    private ThirdPersonService service;
+    private ThirdPersonServiceImpl personService;
 
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/create")
     @ResponseBody
-    public ThirdPerson create(ThirdPerson person)
-    {
-        return service.create(person);
+    public ThirdPerson create(ThirdPerson person) {
+        personService.create(new ThirdPerson.Builder().personId(person.personId()).name(person.personName()).surname(person.personSurname()).build());
+        return personService.create(person);
     }
 
-    @PostMapping("/update")
+    @GetMapping("/getAll")
     @ResponseBody
-    public ThirdPerson update(ThirdPerson person)
-    {
-        return service.update(person);
-    }
-
-    @GetMapping("/delete/{personId}")
-    @ResponseBody
-    public void delete(@PathVariable String personId)
-    {
-        service.delete(personId);
-    }
-
-    @GetMapping("/read/{personId}")
-    @ResponseBody
-    public ThirdPerson read(@PathVariable String personId)
-    {
-        return service.read(personId);
-    }
-
-    @GetMapping("/read/all")
-    @ResponseBody
-    public Set<ThirdPerson> getAll()
-    {
-        return service.getAll();
+    public List<ThirdPerson> getAll() {
+        return personService.getAll();
     }
 }

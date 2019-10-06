@@ -2,62 +2,73 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.Occupation;
 import ac.za.cput.repository.OccupationRepository;
-import ac.za.cput.repository.impl.OccupationRepositoryImpl;
 import ac.za.cput.service.OccupationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-@Service("OccupationServiceImpl")
+@Service
 public class OccupationServiceImpl implements OccupationService {
 
-    private OccupationServiceImpl service = null;
+    private static OccupationService occupationService = null;
 
-    private OccupationRepository repository;
+    @Autowired
+    private OccupationRepository occupationRepository;
 
-    public OccupationServiceImpl()
+    private OccupationServiceImpl()
     {
-        this.repository = OccupationRepositoryImpl.getRepository();
+
     }
 
-    public OccupationServiceImpl getService()
+    public static OccupationService getOccupationService()
     {
-        if(service == null)
-        {
-            service = new OccupationServiceImpl();
-        }
-
-        return service;
+        if(occupationService == null) occupationService = new OccupationServiceImpl();
+        return occupationService;
     }
+
+
 
     @Override
     public Occupation create(Occupation occupation)
     {
-        return repository.create(occupation);
+        return this.occupationRepository.save(occupation);
     }
 
     @Override
     public Occupation update(Occupation occupation)
     {
-        return repository.update(occupation);
+        return this.occupationRepository.save(occupation);
     }
 
     @Override
     public void delete(String p)
     {
-        repository.delete(p);
+        this.occupationRepository.deleteById(p);
     }
 
     @Override
-    public Occupation read(String p)
+    public Occupation read(String o)
     {
-        return repository.read(p);
+        Optional<Occupation> optionalOccupation = this.occupationRepository.findById(o);
+        return optionalOccupation.orElse(null);
     }
+
     @Override
-    public Set<Occupation> getAll() {
-        return repository.getAll();
+    public Occupation retrieveById(String occupationId)
+    {
+        List<Occupation> occupations = getAll();
+        for(Occupation occupation : occupations){
+            if(occupation.occupationIdentity().equalsIgnoreCase(occupationId)) return occupation;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Occupation> getAll() {
+        return this.occupationRepository.findAll();
     }
 
 }

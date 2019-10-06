@@ -1,3 +1,4 @@
+/*
 package ac.za.cput.controller.more;
 
 import ac.za.cput.domain.NameValidation;
@@ -51,3 +52,4 @@ public class NameValidationController {
         return service.getAll();
     }
 }
+*/

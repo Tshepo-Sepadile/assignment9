@@ -1,3 +1,4 @@
+/*
 package ac.za.cput.controller.passwords;
 
 import ac.za.cput.domain.PersonPassword;
@@ -51,3 +52,4 @@ public class PersonPasswordController {
         return service.getAll();
     }
 }
+*/

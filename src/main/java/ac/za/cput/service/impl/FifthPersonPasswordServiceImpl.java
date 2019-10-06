@@ -2,63 +2,75 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.FifthPersonPassword;
 import ac.za.cput.repository.FifthPersonPasswordRepository;
-import ac.za.cput.repository.impl.FifthPersonPasswordRepositoryImpl;
 import ac.za.cput.service.FifthPersonPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-@Service("FifthPersonPasswordServiceImpl")
+@Service
 public class FifthPersonPasswordServiceImpl implements FifthPersonPasswordService {
 
 
-    private FifthPersonPasswordServiceImpl service = null;
+    private static FifthPersonPasswordService fifthPersonPasswordService = null;
 
-    private FifthPersonPasswordRepository repository;
+    @Autowired
+    private FifthPersonPasswordRepository fifthPersonPasswordRepository;
 
-    public FifthPersonPasswordServiceImpl()
+    private FifthPersonPasswordServiceImpl()
     {
-        this.repository = FifthPersonPasswordRepositoryImpl.getRepository();
+
     }
 
-    public FifthPersonPasswordServiceImpl getService()
+    public static FifthPersonPasswordService getPersonService()
     {
-        if(service == null)
-        {
-            service = new FifthPersonPasswordServiceImpl();
-        }
+        if(fifthPersonPasswordService == null) fifthPersonPasswordService = new FifthPersonPasswordServiceImpl();
+        return fifthPersonPasswordService;
+    }
 
-        return service;
+
+
+    @Override
+    public FifthPersonPassword create(FifthPersonPassword fifthPersonPassword)
+    {
+        return this.fifthPersonPasswordRepository.save(fifthPersonPassword);
     }
 
     @Override
-    public FifthPersonPassword create(FifthPersonPassword personPassword)
+    public FifthPersonPassword update(FifthPersonPassword fifthPersonPassword)
     {
-        return repository.create(personPassword);
-    }
-
-    @Override
-    public FifthPersonPassword update(FifthPersonPassword personPassword)
-    {
-        return repository.update(personPassword);
+        return this.fifthPersonPasswordRepository.save(fifthPersonPassword);
     }
 
     @Override
     public void delete(String p)
     {
-        repository.delete(p);
+        this.fifthPersonPasswordRepository.deleteById(p);
     }
 
     @Override
     public FifthPersonPassword read(String p)
     {
-        return repository.read(p);
+        Optional<FifthPersonPassword> optionalFifthPersonPassword = this.fifthPersonPasswordRepository.findById(p);
+        return optionalFifthPersonPassword.orElse(null);
     }
+
     @Override
-    public Set<FifthPersonPassword> getAll() {
-        return repository.getAll();
+    public FifthPersonPassword retrieveById(String password)
+    {
+        List<FifthPersonPassword> fifthPersonPasswords = getAll();
+        for(FifthPersonPassword fifthPersonPassword : fifthPersonPasswords){
+            if(fifthPersonPassword.password().equalsIgnoreCase(password)) return fifthPersonPassword;
+        }
+        return null;
     }
+
+    @Override
+    public List<FifthPersonPassword> getAll() {
+        return this.fifthPersonPasswordRepository.findAll();
+    }
+
 
 }

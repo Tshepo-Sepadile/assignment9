@@ -1,8 +1,11 @@
 package ac.za.cput.repository;
 import ac.za.cput.domain.SecondPersonPassword;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
-public interface SecondPersonPasswordRepository extends IRepository<SecondPersonPassword, String> {
-    Set<SecondPersonPassword> getAll();
+@Repository
+public interface SecondPersonPasswordRepository extends JpaRepository<SecondPersonPassword, String> {
+    //Set<SecondPersonPassword> getAll();
 }

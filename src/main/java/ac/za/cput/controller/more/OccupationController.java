@@ -1,4 +1,4 @@
-package ac.za.cput.controller.more;
+/*package ac.za.cput.controller.more;
 
 import ac.za.cput.domain.Occupation;
 import ac.za.cput.service.OccupationService;
@@ -50,4 +50,4 @@ public class OccupationController {
     {
         return service.getAll();
     }
-}
+}*/

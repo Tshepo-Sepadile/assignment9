@@ -2,62 +2,73 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.NameValidation;
 import ac.za.cput.repository.NameValidationRepository;
-import ac.za.cput.repository.impl.NameValidationRepositoryImpl;
 import ac.za.cput.service.NameValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-@Service("NameValidationServiceImpl")
+@Service
 public class NameValidationServiceImpl implements NameValidationService {
 
-    private NameValidationServiceImpl service = null;
+    private static NameValidationService nameValidationService = null;
 
-    private NameValidationRepository repository;
+    @Autowired
+    private NameValidationRepository nameValidationRepository;
 
-    public NameValidationServiceImpl()
+    private NameValidationServiceImpl()
     {
-        this.repository = NameValidationRepositoryImpl.getRepository();
+
     }
 
-    public NameValidationServiceImpl getService()
+    public static NameValidationService getNameValidationService()
     {
-        if(service == null)
-        {
-            service = new NameValidationServiceImpl();
-        }
-
-        return service;
+        if(nameValidationService == null) nameValidationService = new NameValidationServiceImpl();
+        return nameValidationService;
     }
+
+
 
     @Override
     public NameValidation create(NameValidation nameValidation)
     {
-        return repository.create(nameValidation);
+        return this.nameValidationRepository.save(nameValidation);
     }
 
     @Override
     public NameValidation update(NameValidation nameValidation)
     {
-        return repository.update(nameValidation);
+        return this.nameValidationRepository.save(nameValidation);
     }
 
     @Override
     public void delete(String p)
     {
-        repository.delete(p);
+        this.nameValidationRepository.deleteById(p);
     }
 
     @Override
     public NameValidation read(String p)
     {
-        return repository.read(p);
+        Optional<NameValidation> optionalNameValidation = this.nameValidationRepository.findById(p);
+        return optionalNameValidation.orElse(null);
     }
+
     @Override
-    public Set<NameValidation> getAll() {
-        return repository.getAll();
+    public NameValidation retrieveById(String nameVal)
+    {
+        List<NameValidation> nameValidations = getAll();
+        for(NameValidation nameValidation : nameValidations){
+            if(nameValidation.validateName().equalsIgnoreCase(nameVal)) return nameValidation;
+        }
+        return null;
+    }
+
+    @Override
+    public List<NameValidation> getAll() {
+        return this.nameValidationRepository.findAll();
     }
 
 }

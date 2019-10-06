@@ -1,3 +1,4 @@
+/*
 package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.Job;
@@ -58,4 +59,4 @@ public class JobRepositoryImplTest {
         Set<Job> persons = this.repository.getAll();
         Assert.assertEquals(1, persons.size());
     }
-}
+}*/

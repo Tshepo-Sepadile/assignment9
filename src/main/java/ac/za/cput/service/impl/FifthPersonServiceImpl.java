@@ -2,62 +2,74 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.FifthPerson;
 import ac.za.cput.repository.FifthPersonRepository;
-import ac.za.cput.repository.impl.FifthPersonRepositoryImpl;
 import ac.za.cput.service.FifthPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-@Service("FifthPersonServiceImpl")
+@Service
 public class FifthPersonServiceImpl implements FifthPersonService {
 
-    private FifthPersonServiceImpl service = null;
+    private static FifthPersonService fifthPersonService = null;
 
-    private FifthPersonRepository repository;
+    @Autowired
+    private FifthPersonRepository fifthPersonRepository;
 
-    public FifthPersonServiceImpl()
+    private FifthPersonServiceImpl()
     {
-        this.repository = FifthPersonRepositoryImpl.getRepository();
+
     }
 
-    public FifthPersonServiceImpl getService()
+    public static FifthPersonService getFifthPersonService()
     {
-        if(service == null)
-        {
-            service = new FifthPersonServiceImpl();
-        }
-
-        return service;
+        if(fifthPersonService == null) fifthPersonService = new FifthPersonServiceImpl();
+        return fifthPersonService;
     }
+
+
 
     @Override
     public FifthPerson create(FifthPerson person)
     {
-        return repository.create(person);
+        return this.fifthPersonRepository.save(person);
     }
 
     @Override
     public FifthPerson update(FifthPerson person)
     {
-        return repository.update(person);
+        return this.fifthPersonRepository.save(person);
     }
 
     @Override
     public void delete(String p)
     {
-        repository.delete(p);
+        this.fifthPersonRepository.deleteById(p);
     }
 
     @Override
     public FifthPerson read(String p)
     {
-        return repository.read(p);
+        Optional<FifthPerson> optionalPerson = this.fifthPersonRepository.findById(p);
+        return optionalPerson.orElse(null);
     }
+
     @Override
-    public Set<FifthPerson> getAll() {
-        return repository.getAll();
+    public FifthPerson retrieveById(String personId)
+    {
+        List<FifthPerson> fifthPeople = getAll();
+        for(FifthPerson fifthPerson : fifthPeople){
+            if(fifthPerson.personId().equalsIgnoreCase(personId)) return fifthPerson;
+        }
+        return null;
     }
+
+    @Override
+    public List<FifthPerson> getAll() {
+        return this.fifthPersonRepository.findAll();
+    }
+
 
 }

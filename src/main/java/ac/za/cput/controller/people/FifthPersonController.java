@@ -1,3 +1,4 @@
+
 package ac.za.cput.controller.people;
 
 import ac.za.cput.domain.FifthPerson;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -15,40 +17,21 @@ import java.util.Set;
 public class FifthPersonController {
 
     @Autowired
-    private FifthPersonServiceImpl service;
+    private FifthPersonServiceImpl personService;
 
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/create")
     @ResponseBody
     public FifthPerson create(FifthPerson person)
     {
-        return service.create(person);
+        personService.create(new FifthPerson.Builder().personId(person.personId()).name(person.personName()).surname(person.personSurname()).build());
+        return personService.create(person);
     }
 
-    @PostMapping("/update")
+    @GetMapping("/getAll")
     @ResponseBody
-    public FifthPerson update(FifthPerson person)
+    public List<FifthPerson> getAll()
     {
-        return service.update(person);
-    }
-
-    @GetMapping("/delete/{personId}")
-    @ResponseBody
-    public void delete(@PathVariable String personId)
-    {
-        service.delete(personId);
-    }
-
-    @GetMapping("/read/{personId}")
-    @ResponseBody
-    public FifthPerson read(@PathVariable String personId)
-    {
-        return service.read(personId);
-    }
-
-    @GetMapping("/read/all")
-    @ResponseBody
-    public Set<FifthPerson> getAll()
-    {
-        return service.getAll();
+        return personService.getAll();
     }
 }
+

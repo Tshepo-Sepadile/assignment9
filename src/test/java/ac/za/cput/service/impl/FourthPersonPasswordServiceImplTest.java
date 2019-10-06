@@ -3,7 +3,6 @@ package ac.za.cput.service.impl;
 import ac.za.cput.domain.FourthPersonPassword;
 import ac.za.cput.factory.FourthPersonPasswordFactory;
 import ac.za.cput.repository.FourthPersonPasswordRepository;
-import ac.za.cput.repository.impl.FourthPersonPasswordRepositoryImpl;
 import ac.za.cput.service.FourthPersonPasswordService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -67,7 +67,7 @@ public class FourthPersonPasswordServiceImplTest {
     public void d_getAll() {
 
         a_create(); //Comment the create method out when you run all tests at once
-        Set<FourthPersonPassword> persons = this.service.getAll();
+        List<FourthPersonPassword> persons = this.service.getAll();
         Assert.assertEquals(1, persons.size());
     }
 }

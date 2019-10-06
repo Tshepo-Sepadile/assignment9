@@ -2,62 +2,73 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.SecondPerson;
 import ac.za.cput.repository.SecondPersonRepository;
-import ac.za.cput.repository.impl.SecondPersonRepositoryImpl;
 import ac.za.cput.service.SecondPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-@Service("SecondPersonServiceImpl")
+@Service
 public class SecondPersonServiceImpl implements SecondPersonService {
 
-    private SecondPersonServiceImpl service = null;
+    private static SecondPersonService secondPersonService = null;
 
-    private SecondPersonRepository repository;
+    @Autowired
+    private SecondPersonRepository secondPersonRepository;
 
-    public SecondPersonServiceImpl()
+    private SecondPersonServiceImpl()
     {
-        this.repository = SecondPersonRepositoryImpl.getRepository();
+
     }
 
-    public SecondPersonServiceImpl getService()
+    public static SecondPersonService getSecondPersonService()
     {
-        if(service == null)
-        {
-            service = new SecondPersonServiceImpl();
-        }
-
-        return service;
+        if(secondPersonService == null) secondPersonService = new SecondPersonServiceImpl();
+        return secondPersonService;
     }
+
+
 
     @Override
     public SecondPerson create(SecondPerson person)
     {
-        return repository.create(person);
+        return this.secondPersonRepository.save(person);
     }
 
     @Override
     public SecondPerson update(SecondPerson person)
     {
-        return repository.update(person);
+        return this.secondPersonRepository.save(person);
     }
 
     @Override
     public void delete(String p)
     {
-        repository.delete(p);
+        this.secondPersonRepository.deleteById(p);
     }
 
     @Override
     public SecondPerson read(String p)
     {
-        return repository.read(p);
+        Optional<SecondPerson> optionalPerson = this.secondPersonRepository.findById(p);
+        return optionalPerson.orElse(null);
     }
+
     @Override
-    public Set<SecondPerson> getAll() {
-        return repository.getAll();
+    public SecondPerson retrieveById(String personId)
+    {
+        List<SecondPerson> secondPeople = getAll();
+        for(SecondPerson secondPerson : secondPeople){
+            if(secondPerson.personId().equalsIgnoreCase(personId)) return secondPerson;
+        }
+        return null;
+    }
+
+    @Override
+    public List<SecondPerson> getAll() {
+        return this.secondPersonRepository.findAll();
     }
 
 }

@@ -1,11 +1,14 @@
 package ac.za.cput.repository;
 import ac.za.cput.domain.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
-public interface PersonRepository extends IRepository <Person, String> {
+@Repository
+public interface PersonRepository extends JpaRepository <Person, String> {
 
-    Set<Person>getAll();
+    //Set<Person>getAll();
 
 
 }

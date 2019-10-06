@@ -1,4 +1,4 @@
-package ac.za.cput.repository.impl;
+/*package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.SecondPerson;
 import ac.za.cput.repository.SecondPersonRepository;
@@ -59,4 +59,4 @@ public class SecondPersonRepositoryImpl implements SecondPersonRepository {
     {
         return this.persons;
     }
-}
+}*/

@@ -2,62 +2,73 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.PersonPassword;
 import ac.za.cput.repository.PersonPasswordRepository;
-import ac.za.cput.repository.impl.PersonPasswordRepositoryImpl;
 import ac.za.cput.service.PersonPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-@Service("PersonPasswordServiceImpl")
+@Service
 public class PersonPasswordServiceImpl implements PersonPasswordService {
 
-    private PersonPasswordServiceImpl service = null;
+    private static PersonPasswordService personPasswordService = null;
 
-    private PersonPasswordRepository repository;
+    @Autowired
+    private PersonPasswordRepository personPasswordRepository;
 
-    public PersonPasswordServiceImpl()
+    private PersonPasswordServiceImpl()
     {
-        this.repository = PersonPasswordRepositoryImpl.getRepository();
+
     }
 
-    public PersonPasswordServiceImpl getService()
+    public static PersonPasswordService getPersonPasswordService()
     {
-        if(service == null)
-        {
-            service = new PersonPasswordServiceImpl();
-        }
+        if(personPasswordService == null) personPasswordService = new PersonPasswordServiceImpl();
+        return personPasswordService;
+    }
 
-        return service;
+
+
+    @Override
+    public PersonPassword create(PersonPassword person)
+    {
+        return this.personPasswordRepository.save(person);
     }
 
     @Override
-    public PersonPassword create(PersonPassword personPassword)
+    public PersonPassword update(PersonPassword person)
     {
-        return repository.create(personPassword);
-    }
-
-    @Override
-    public PersonPassword update(PersonPassword personPassword)
-    {
-        return repository.update(personPassword);
+        return this.personPasswordRepository.save(person);
     }
 
     @Override
     public void delete(String p)
     {
-        repository.delete(p);
+        this.personPasswordRepository.deleteById(p);
     }
 
     @Override
     public PersonPassword read(String p)
     {
-        return repository.read(p);
+        Optional<PersonPassword> optionalPersonPassword = this.personPasswordRepository.findById(p);
+        return optionalPersonPassword.orElse(null);
     }
+
     @Override
-    public Set<PersonPassword> getAll() {
-        return repository.getAll();
+    public PersonPassword retrieveById(String password)
+    {
+        List<PersonPassword> personPasswordList = getAll();
+        for(PersonPassword personPassword : personPasswordList){
+            if(personPassword.password().equalsIgnoreCase(password)) return personPassword;
+        }
+        return null;
+    }
+
+    @Override
+    public List<PersonPassword> getAll() {
+        return this.personPasswordRepository.findAll();
     }
 
 }

@@ -1,4 +1,4 @@
-package ac.za.cput.repository.impl;
+/*package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.FifthPersonPassword;
 import ac.za.cput.repository.FifthPersonPasswordRepository;
@@ -55,3 +55,4 @@ public class FifthPersonPasswordRepositoryImpl implements FifthPersonPasswordRep
         return this.fifthPersonPasswords;
     }
 }
+*/

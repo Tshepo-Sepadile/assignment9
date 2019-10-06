@@ -1,9 +1,12 @@
 package ac.za.cput.domain;
+import javax.persistence.*;
 
 import java.util.Objects;
 
+@Entity
 public class SecondPersonPassword implements Password {
 
+    @Id
     private String passW2;
 
     public String password()

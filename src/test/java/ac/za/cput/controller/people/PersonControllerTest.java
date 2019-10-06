@@ -14,7 +14,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
@@ -28,56 +27,51 @@ public class PersonControllerTest {
     private String baseURL="http://localhost:8080/person";
 
     @Test
-    public void d_getAll()
+    public void a_create()
     {
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> entity = new HttpEntity<String>(null,headers);
-        ResponseEntity<String> response = restTemplate.exchange(baseURL + "/read/all", HttpMethod.GET, entity, String.class);
+        Person person = PersonFactory.getPerson("John", "Doe", "12345");
+        ResponseEntity<Person> response = restTemplate.postForEntity(baseURL + "/create", person, Person.class);
+        assertNotNull(response);
         assertNotNull(response.getBody());
+        System.out.println("Name: " + response.getBody().personName() + " " + "Surname: " + response.getBody().personSurname() + " " +  "Person ID: " + response.getBody().personId());
     }
 
     @Test
     public void b_read()
     {
-        Person person = restTemplate.getForObject(baseURL + "/read/36594", Person.class);
+        Person person = restTemplate.getForObject(baseURL + "/read/12345", Person.class);
         assertNotNull(person);
-    }
-
-    @Test
-    public void a_create()
-    {
-        Person person = PersonFactory.getPerson("Tshepo", "Sepadile", "36594");
-        ResponseEntity<Person> postResponse = restTemplate.postForEntity(baseURL + "/create", person, Person.class);
-        assertNotNull(postResponse);
-        assertNotNull(postResponse.getBody());
+        System.out.println("Person ID: " + person.personId() + " " + "Name: " + person.personName() + "Surname: " + person.personSurname());
     }
 
     @Test
     public void c_update()
     {
-        String personId = "36594";
+        String personId = "12345";
         Person person = restTemplate.getForObject(baseURL + "/read/" + personId, Person.class);
-        Person newPerson = PersonFactory.getPerson(person.personName(), "Cena", personId);
-        restTemplate.put(baseURL + "/update/" + personId, newPerson);
-        Person updatedPerson = restTemplate.getForObject(baseURL + "/read/" + personId, Person.class);
-        assertNotNull(updatedPerson);
+        restTemplate.put(baseURL + "/update/" + personId, person);
+        Person updatePerson = restTemplate.getForObject(baseURL + "/read/" + personId, Person.class);
+        assertNotNull(updatePerson);
+        System.out.println(updatePerson.personId() + updatePerson.personName() + updatePerson.personSurname());
     }
 
     @Test
-    public void e_delete()
+    public void d_delete()
     {
-        String personId = "36594";
+        String personId = "12345";
         Person person = restTemplate.getForObject(baseURL + "/read/" + personId, Person.class);
         assertNotNull(person);
-        restTemplate.delete(baseURL + "/delete/" + personId);
-        try
-        {
-            person = restTemplate.getForObject(baseURL + "/read/" + personId, Person.class);
-        }
-        catch(final HttpClientErrorException e)
-        {
-            assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
-        }
+        System.out.println(person.personId() + person.personName() + person.personSurname());
+        restTemplate.getForObject(baseURL + "/read/" + personId, Person.class);
+    }
+
+    @Test
+    public void e_getAll()
+    {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        ResponseEntity responseEntity = restTemplate.exchange(baseURL + "/getAll", HttpMethod.GET, entity, String.class);
+        assertNotSame(null, responseEntity.getBody());
     }
 
 }

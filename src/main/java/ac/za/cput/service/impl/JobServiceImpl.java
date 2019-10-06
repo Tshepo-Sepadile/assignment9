@@ -2,62 +2,73 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.Job;
 import ac.za.cput.repository.JobRepository;
-import ac.za.cput.repository.impl.JobRepositoryImpl;
 import ac.za.cput.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-@Service("JobServiceImpl")
+@Service
 public class JobServiceImpl implements JobService {
 
-    private JobServiceImpl service = null;
+    private static JobService jobService = null;
 
-    private JobRepository repository;
+    @Autowired
+    private JobRepository jobRepository;
 
-    public JobServiceImpl()
+    private JobServiceImpl()
     {
-        this.repository = JobRepositoryImpl.getRepository();
+
     }
 
-    public JobServiceImpl getService()
+    public static JobService getJobService()
     {
-        if(service == null)
-        {
-            service = new JobServiceImpl();
-        }
-
-        return service;
+        if(jobService == null) jobService = new JobServiceImpl();
+        return jobService;
     }
+
+
 
     @Override
     public Job create(Job job)
     {
-        return repository.create(job);
+        return this.jobRepository.save(job);
     }
 
     @Override
     public Job update(Job job)
     {
-        return repository.update(job);
+        return this.jobRepository.save(job);
     }
 
     @Override
-    public void delete(String p)
+    public void delete(String j)
     {
-        repository.delete(p);
+        this.jobRepository.deleteById(j);
     }
 
     @Override
     public Job read(String p)
     {
-        return repository.read(p);
+        Optional<Job> optionalPerson = this.jobRepository.findById(p);
+        return optionalPerson.orElse(null);
     }
+
     @Override
-    public Set<Job> getAll() {
-        return repository.getAll();
+    public Job retrieveById(String jobTitle)
+    {
+        List<Job> jobs = getAll();
+        for(Job job : jobs){
+            if(job.myJobTitle().equalsIgnoreCase(jobTitle)) return job;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Job> getAll() {
+        return this.jobRepository.findAll();
     }
 
 }

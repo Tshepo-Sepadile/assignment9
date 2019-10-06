@@ -1,8 +1,11 @@
 package ac.za.cput.repository;
 import ac.za.cput.domain.FourthPersonPassword;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
-public interface FourthPersonPasswordRepository extends IRepository<FourthPersonPassword, String> {
-    Set<FourthPersonPassword> getAll();
+@Repository
+public interface FourthPersonPasswordRepository extends JpaRepository<FourthPersonPassword, String> {
+    //Set<FourthPersonPassword> getAll();
 }

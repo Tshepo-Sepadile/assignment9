@@ -1,4 +1,4 @@
-package ac.za.cput.repository.impl;
+/*package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.PersonPassword;
 import ac.za.cput.repository.PersonPasswordRepository;
@@ -54,4 +54,4 @@ public class PersonPasswordRepositoryImpl implements PersonPasswordRepository{
     {
         return this.personPasswords;
     }
-}
+}*/

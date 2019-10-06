@@ -1,18 +1,19 @@
 package ac.za.cput.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class IndexController {
 
-    @GetMapping("/")
+    @RequestMapping(value = {"/", "/password"})
     @ResponseBody
-
-    public String getHome()
+    public ResponseEntity<String> getHome()
     {
-        return "Hello World";
+        return new ResponseEntity<>("Hello, welcome to Password Manager", HttpStatus.OK);
     }
 
 }

@@ -3,7 +3,6 @@ package ac.za.cput.service.impl;
 import ac.za.cput.domain.FifthPerson;
 import ac.za.cput.factory.FifthPersonFactory;
 import ac.za.cput.repository.FifthPersonRepository;
-import ac.za.cput.repository.impl.FifthPersonRepositoryImpl;
 import ac.za.cput.service.FifthPersonService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -67,7 +67,7 @@ public class FifthPersonServiceImplTest {
     public void d_getAll() {
 
         a_create(); //Comment the create method out when you run all tests at once
-        Set<FifthPerson> persons = this.service.getAll();
+        List<FifthPerson> persons = this.service.getAll();
         Assert.assertEquals(1, persons.size());
     }
 }

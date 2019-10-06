@@ -1,3 +1,4 @@
+/*
 package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.NameValidation;
@@ -59,3 +60,4 @@ public class NameValidationRepositoryImplTest {
         Assert.assertEquals(1, persons.size());
     }
 }
+*/

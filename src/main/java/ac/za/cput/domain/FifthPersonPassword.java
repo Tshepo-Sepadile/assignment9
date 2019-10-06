@@ -1,9 +1,12 @@
 package ac.za.cput.domain;
+import javax.persistence.*;
 
 import java.util.Objects;
 
+@Entity
 public class FifthPersonPassword implements Password {
 
+    @Id
     private String passW5;
 
     public String password()

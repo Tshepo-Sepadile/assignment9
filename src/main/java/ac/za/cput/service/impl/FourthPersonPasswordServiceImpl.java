@@ -2,62 +2,73 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.FourthPersonPassword;
 import ac.za.cput.repository.FourthPersonPasswordRepository;
-import ac.za.cput.repository.impl.FourthPersonPasswordRepositoryImpl;
 import ac.za.cput.service.FourthPersonPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-@Service("FourthPersonPasswordServiceImpl")
+@Service
 public class FourthPersonPasswordServiceImpl implements FourthPersonPasswordService {
 
-    private FourthPersonPasswordServiceImpl service = null;
+    private static FourthPersonPasswordService fourthPersonPasswordService = null;
 
-    private FourthPersonPasswordRepository repository;
+    @Autowired
+    private FourthPersonPasswordRepository fourthPersonPasswordRepository;
 
-    public FourthPersonPasswordServiceImpl()
+    private FourthPersonPasswordServiceImpl()
     {
-        this.repository = FourthPersonPasswordRepositoryImpl.getRepository();
+
     }
 
-    public FourthPersonPasswordServiceImpl getService()
+    public static FourthPersonPasswordService getFourthPersonPasswordService()
     {
-        if(service == null)
-        {
-            service = new FourthPersonPasswordServiceImpl();
-        }
+        if(fourthPersonPasswordService == null) fourthPersonPasswordService = new FourthPersonPasswordServiceImpl();
+        return fourthPersonPasswordService;
+    }
 
-        return service;
+
+
+    @Override
+    public FourthPersonPassword create(FourthPersonPassword person)
+    {
+        return this.fourthPersonPasswordRepository.save(person);
     }
 
     @Override
-    public FourthPersonPassword create(FourthPersonPassword personPassword)
+    public FourthPersonPassword update(FourthPersonPassword person)
     {
-        return repository.create(personPassword);
-    }
-
-    @Override
-    public FourthPersonPassword update(FourthPersonPassword personPassword)
-    {
-        return repository.update(personPassword);
+        return this.fourthPersonPasswordRepository.save(person);
     }
 
     @Override
     public void delete(String p)
     {
-        repository.delete(p);
+        this.fourthPersonPasswordRepository.deleteById(p);
     }
 
     @Override
     public FourthPersonPassword read(String p)
     {
-        return repository.read(p);
+        Optional<FourthPersonPassword> optionalPerson = this.fourthPersonPasswordRepository.findById(p);
+        return optionalPerson.orElse(null);
     }
+
     @Override
-    public Set<FourthPersonPassword> getAll() {
-        return repository.getAll();
+    public FourthPersonPassword retrieveById(String password)
+    {
+        List<FourthPersonPassword> fourthPersonPasswordList = getAll();
+        for(FourthPersonPassword fourthPersonPassword : fourthPersonPasswordList){
+            if(fourthPersonPassword.password().equalsIgnoreCase(password)) return fourthPersonPassword;
+        }
+        return null;
+    }
+
+    @Override
+    public List<FourthPersonPassword> getAll() {
+        return this.fourthPersonPasswordRepository.findAll();
     }
 
 }

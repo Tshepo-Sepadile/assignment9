@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.1.4.RELEASE</version>
+    <version>2.1.5.RELEASE</version>
   </parent>
 
 
@@ -44,20 +44,29 @@
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
-    <dependency>
+    <!--<dependency>  //06 Oct 2019
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <version>2.1.4.RELEASE</version>
       <optional>true</optional>
-    </dependency>
+    </dependency>-->
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <version>2.1.4.RELEASE</version>
-      <scope>test</scope>
+      <!--<version>2.1.4.RELEASE</version> //06 Oct 2019
+      <scope>test</scope>-->
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
 
   </dependencies>
 

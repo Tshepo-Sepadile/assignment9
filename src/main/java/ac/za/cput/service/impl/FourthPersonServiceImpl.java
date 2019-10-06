@@ -2,62 +2,74 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.FourthPerson;
 import ac.za.cput.repository.FourthPersonRepository;
-import ac.za.cput.repository.impl.FourthPersonRepositoryImpl;
 import ac.za.cput.service.FourthPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-@Service("FouthServiceImpl")
+@Service
 public class FourthPersonServiceImpl implements FourthPersonService {
 
-    private FourthPersonServiceImpl service = null;
+    private static FourthPersonService fourthPersonService = null;
 
-    private FourthPersonRepository repository;
+    @Autowired
+    private FourthPersonRepository fourthPersonRepository;
 
-    public FourthPersonServiceImpl()
+    private FourthPersonServiceImpl()
     {
-        this.repository = FourthPersonRepositoryImpl.getRepository();
+
     }
 
-    public FourthPersonServiceImpl getService()
+    public static FourthPersonService getFourthPersonService()
     {
-        if(service == null)
-        {
-            service = new FourthPersonServiceImpl();
-        }
-
-        return service;
+        if(fourthPersonService == null) fourthPersonService = new FourthPersonServiceImpl();
+        return fourthPersonService;
     }
+
+
 
     @Override
     public FourthPerson create(FourthPerson person)
     {
-        return repository.create(person);
+        return this.fourthPersonRepository.save(person);
     }
 
     @Override
     public FourthPerson update(FourthPerson person)
     {
-        return repository.update(person);
+        return this.fourthPersonRepository.save(person);
     }
 
     @Override
     public void delete(String p)
     {
-        repository.delete(p);
+        this.fourthPersonRepository.deleteById(p);
     }
 
     @Override
     public FourthPerson read(String p)
     {
-        return repository.read(p);
+        Optional<FourthPerson> optionalPerson = this.fourthPersonRepository.findById(p);
+        return optionalPerson.orElse(null);
     }
+
     @Override
-    public Set<FourthPerson> getAll() {
-        return repository.getAll();
+    public FourthPerson retrieveById(String personId)
+    {
+        List<FourthPerson> fourthPeople = getAll();
+        for(FourthPerson fourthPerson : fourthPeople){
+            if(fourthPerson.personId().equalsIgnoreCase(personId)) return fourthPerson;
+        }
+        return null;
     }
+
+    @Override
+    public List<FourthPerson> getAll() {
+        return this.fourthPersonRepository.findAll();
+    }
+
 
 }

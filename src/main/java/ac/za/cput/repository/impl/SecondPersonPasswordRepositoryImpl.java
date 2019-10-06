@@ -1,4 +1,4 @@
-package ac.za.cput.repository.impl;
+/*package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.SecondPersonPassword;
 import ac.za.cput.repository.SecondPersonPasswordRepository;
@@ -54,4 +54,4 @@ public class SecondPersonPasswordRepositoryImpl implements SecondPersonPasswordR
     {
         return this.secondPersonPasswords;
     }
-}
+}*/

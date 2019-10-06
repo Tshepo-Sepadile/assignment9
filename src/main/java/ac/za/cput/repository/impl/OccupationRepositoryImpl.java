@@ -1,4 +1,4 @@
-package ac.za.cput.repository.impl;
+/*package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.Occupation;
 import ac.za.cput.repository.OccupationRepository;
@@ -55,4 +55,4 @@ public class OccupationRepositoryImpl implements OccupationRepository{
     {
         return this.occupations;
     }
-}
+}*/

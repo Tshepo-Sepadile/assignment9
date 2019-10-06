@@ -29,9 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.httpBasic().and()
+        http
+                .httpBasic()
+                .and()
                 .authorizeRequests()
-                .anyRequest().authenticated();
+                .antMatchers(HttpMethod.POST, "/password/**/create/**").hasRole(ADMIN_ROLE)
+                .and()
+                .csrf().disable()
+                .formLogin().disable();
     }
 
     @Bean

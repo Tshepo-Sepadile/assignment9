@@ -1,7 +1,9 @@
 package ac.za.cput.domain;
+import javax.persistence.*;
 
 import java.util.Objects;
 
+@Entity
 public class PasswordValidation {
 
     private String passwordVal;

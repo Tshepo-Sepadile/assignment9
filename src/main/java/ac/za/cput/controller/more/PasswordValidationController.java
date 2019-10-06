@@ -1,3 +1,4 @@
+/*
 package ac.za.cput.controller.more;
 
 import ac.za.cput.domain.PasswordValidation;
@@ -50,4 +51,4 @@ public class PasswordValidationController {
     {
         return service.getAll();
     }
-}
+}*/

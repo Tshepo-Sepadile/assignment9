@@ -2,62 +2,73 @@ package ac.za.cput.service.impl;
 
 import ac.za.cput.domain.SecondPersonPassword;
 import ac.za.cput.repository.SecondPersonPasswordRepository;
-import ac.za.cput.repository.impl.SecondPersonPasswordRepositoryImpl;
 import ac.za.cput.service.SecondPersonPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-@Service("SecondPersonPasswordServiceImpl")
+@Service
 public class SecondPersonPasswordServiceImpl implements SecondPersonPasswordService {
 
-    private SecondPersonPasswordServiceImpl service = null;
+    private static SecondPersonPasswordService secondPersonPasswordService = null;
 
-    private SecondPersonPasswordRepository repository;
+    @Autowired
+    private SecondPersonPasswordRepository secondPersonPasswordRepository;
 
-    public SecondPersonPasswordServiceImpl()
+    private SecondPersonPasswordServiceImpl()
     {
-        this.repository = SecondPersonPasswordRepositoryImpl.getRepository();
+
     }
 
-    public SecondPersonPasswordServiceImpl getService()
+    public static SecondPersonPasswordService getSecondPersonPasswordService()
     {
-        if(service == null)
-        {
-            service = new SecondPersonPasswordServiceImpl();
-        }
+        if(secondPersonPasswordService == null) secondPersonPasswordService = new SecondPersonPasswordServiceImpl();
+        return secondPersonPasswordService;
+    }
 
-        return service;
+
+
+    @Override
+    public SecondPersonPassword create(SecondPersonPassword person)
+    {
+        return this.secondPersonPasswordRepository.save(person);
     }
 
     @Override
-    public SecondPersonPassword create(SecondPersonPassword personPassword)
+    public SecondPersonPassword update(SecondPersonPassword person)
     {
-        return repository.create(personPassword);
-    }
-
-    @Override
-    public SecondPersonPassword update(SecondPersonPassword personPassword)
-    {
-        return repository.update(personPassword);
+        return this.secondPersonPasswordRepository.save(person);
     }
 
     @Override
     public void delete(String p)
     {
-        repository.delete(p);
+        this.secondPersonPasswordRepository.deleteById(p);
     }
 
     @Override
     public SecondPersonPassword read(String p)
     {
-        return repository.read(p);
+        Optional<SecondPersonPassword> optionalSecondPersonPassword = this.secondPersonPasswordRepository.findById(p);
+        return optionalSecondPersonPassword.orElse(null);
     }
+
     @Override
-    public Set<SecondPersonPassword> getAll() {
-        return repository.getAll();
+    public SecondPersonPassword retrieveById(String password)
+    {
+        List<SecondPersonPassword> secondPersonPasswordList = getAll();
+        for(SecondPersonPassword secondPersonPassword : secondPersonPasswordList){
+            if(secondPersonPassword.password().equalsIgnoreCase(password)) return secondPersonPassword;
+        }
+        return null;
+    }
+
+    @Override
+    public List<SecondPersonPassword> getAll() {
+        return this.secondPersonPasswordRepository.findAll();
     }
 
 }

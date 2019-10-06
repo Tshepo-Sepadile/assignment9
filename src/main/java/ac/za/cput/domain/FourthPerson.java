@@ -1,12 +1,15 @@
 package ac.za.cput.domain;
+import javax.persistence.*;
 
 import java.util.Objects;
 
+@Entity
 public class FourthPerson implements User {
 
+    @Id
+    private String personId;
     private String name;
     private String surname;
-    private String personId;
 
     public FourthPerson(Builder builder)
     {

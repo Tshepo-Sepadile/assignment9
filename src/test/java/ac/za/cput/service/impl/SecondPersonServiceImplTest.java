@@ -3,7 +3,6 @@ package ac.za.cput.service.impl;
 import ac.za.cput.domain.SecondPerson;
 import ac.za.cput.factory.SecondPersonFactory;
 import ac.za.cput.repository.SecondPersonRepository;
-import ac.za.cput.repository.impl.SecondPersonRepositoryImpl;
 import ac.za.cput.service.SecondPersonService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -67,7 +67,7 @@ public class SecondPersonServiceImplTest {
     public void d_getAll() {
 
         a_create(); //Comment the create method out when you run all tests at once
-        Set<SecondPerson> persons = this.service.getAll();
+        List<SecondPerson> persons = this.service.getAll();
         Assert.assertEquals(1, persons.size());
     }
 }
