@@ -2,10 +2,12 @@ package ac.za.cput.domain;
 import javax.persistence.*;
 
 @Entity
-public class FourthPersonPassword implements Password {
+public class FourthPersonPassword {
 
     @Id
     private String passW4;
+
+    private FourthPersonPassword(){}
 
     public String password()
     {

@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class FifthPerson implements User {
+public class FifthPerson {
 
     @Id
     private String personId;
     private String name;
     private String surname;
+
+    private FifthPerson(){}
 
     public FifthPerson(Builder builder)
     {

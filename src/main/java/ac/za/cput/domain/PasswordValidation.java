@@ -6,6 +6,7 @@ import java.util.Objects;
 @Entity
 public class PasswordValidation {
 
+    @Id
     private String passwordVal;
 
     public String validatePassword()

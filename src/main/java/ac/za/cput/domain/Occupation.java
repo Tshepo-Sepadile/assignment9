@@ -9,6 +9,8 @@ public class Occupation {
     @Id
     private String occupationID;
 
+    private Occupation(){}
+
     public String occupationIdentity()
     {
         return occupationID;

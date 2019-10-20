@@ -7,6 +7,6 @@ import java.util.Set;
 
 public interface PersonService extends IService<Person, String> {
 
-    Person retrieveById(String personId);
+    //Person retrieveById(String personId);
     List<Person> getAll();
 }

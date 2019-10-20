@@ -6,7 +6,10 @@ import java.util.Objects;
 @Entity
 public class NameValidation {
 
+    @Id
     private String nameVal;
+
+    private NameValidation(){}
 
     public String validateName()
     {

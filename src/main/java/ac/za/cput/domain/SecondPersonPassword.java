@@ -4,10 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class SecondPersonPassword implements Password {
+public class SecondPersonPassword {
 
     @Id
     private String passW2;
+
+    private SecondPersonPassword(){}
 
     public String password()
     {

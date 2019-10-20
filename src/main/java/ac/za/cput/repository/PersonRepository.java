@@ -8,7 +8,5 @@ import java.util.Set;
 @Repository
 public interface PersonRepository extends JpaRepository <Person, String> {
 
-    //Set<Person>getAll();
-
 
 }

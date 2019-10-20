@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -19,18 +18,15 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    private PersonServiceImpl()
-    {
-
-    }
+    private PersonServiceImpl() {}
 
     public static PersonService getPersonService()
     {
-        if(personService == null) personService = new PersonServiceImpl();
+        if(personService == null) {
+            personService = new PersonServiceImpl();
+        }
         return personService;
     }
-
-
 
     @Override
     public Person create(Person person)
@@ -39,36 +35,27 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public Person read(String personId)
+    {
+        Optional<Person> optPerson = this.personRepository.findById(personId);
+        return optPerson.orElse(null);
+    }
+
+    @Override
     public Person update(Person person)
     {
-        return this.personRepository.save(person);
+       return this.personRepository.save(person);
     }
 
     @Override
-    public void delete(String p)
+    public void delete(String personId)
     {
-        this.personRepository.deleteById(p);
+        personRepository.deleteById(personId);
     }
 
     @Override
-    public Person read(String p)
+    public List<Person> getAll()
     {
-        Optional<Person> optionalPerson = this.personRepository.findById(p);
-        return optionalPerson.orElse(null);
-    }
-
-    @Override
-    public Person retrieveById(String personId)
-    {
-        List<Person> people = getAll();
-        for(Person person : people){
-            if(person.personId().equalsIgnoreCase(personId)) return person;
-        }
-        return null;
-    }
-
-    @Override
-    public List<Person> getAll() {
         return this.personRepository.findAll();
     }
 

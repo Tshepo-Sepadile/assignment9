@@ -4,6 +4,7 @@ import ac.za.cput.domain.Person;
 import ac.za.cput.factory.PersonFactory;
 import ac.za.cput.service.PersonService;
 import ac.za.cput.service.impl.PersonServiceImpl;
+import org.assertj.core.util.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -15,60 +16,43 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("password/person")
+@RequestMapping("/person")
 public class PersonController {
 
     @Autowired
     private PersonServiceImpl personService;
 
-    @PostMapping("/create")
-    @ResponseBody
+    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public Person create(Person person)
     {
-        personService.create(new Person.Builder().personId(person.personId()).name(person.personName()).surname(person.personSurname()).build());
-        return personService.create(person);
+        Person psn = PersonFactory.getPerson(person.personName(), person.personSurname(), person.personId());
+        return personService.create(psn);
     }
 
-    @GetMapping("/getAll")
-    @ResponseBody
-    public List<Person> getAll()
+    @GetMapping(path = "/read/{personId}")
+    public Person read(@PathVariable String personId)
     {
-        return personService.getAll();
+        return this.personService.read(personId);
     }
 
-    /*
-    @PostMapping("/create")
-    @ResponseBody
-    public Person create(@RequestBody Person person)
-    {
-       return service.create(person);
-    }
-
-    @GetMapping("/read/{s}")
-    @ResponseBody
-    public Person read(@PathVariable String s)
-    {
-        return service.read(s);
-    }
-
-    @PostMapping("/update")
-    @ResponseBody
+    @PutMapping("/update")
     public Person update(@RequestBody Person person)
     {
-        return service.update(person);
+        return this.personService.update(person);
     }
 
-    @GetMapping("/delete/{s}")
-    @ResponseBody
-    public void delete(@PathVariable String s)
+    @DeleteMapping(path = "/delete/{personId}")
+    public void delete(@PathVariable String personId)
     {
-        service.delete(s);
+        personService.delete(personId);
     }
 
-    @GetMapping("/getAll")
-    @ResponseBody
-    public Set<Person> getAll()
+    @GetMapping("/getall")
+    public List<Person> getAll()
     {
-        return service.getAll();
-    }*/
+        List<Person> persons = personService.getAll();
+        return persons;
+    }
+
+
 }

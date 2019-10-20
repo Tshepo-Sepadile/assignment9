@@ -6,7 +6,10 @@ import java.util.Objects;
 @Entity
 public class Job {
 
+    @Id
     private String jobTible;
+
+    private Job(){}
 
     public String myJobTitle()
     {
